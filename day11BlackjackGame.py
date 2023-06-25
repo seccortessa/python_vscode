@@ -67,11 +67,11 @@ def initGame():
     while onPlay:
         human.seeHand()
         cont = input("Take (t) or Plant (p): ")
-        human.seeHand()
-        if cont == 'p' or cont == 'P'  or human.getScore() > 21 :
-            onPlay = False
         if cont == 't':
             human.giveaCard()
+        if cont == 'p' or cont == 'P'  or human.getScore() > 21 :
+            onPlay = False
+        human.seeHand()
             
         computer.seeHand()
         if computer.getScore() < 17:
@@ -90,11 +90,11 @@ def initGame():
     print("and computer score is ") 
     print(computer.getScore())
 
-    if human.getScore() > computer.getScore() or computer.getScore() > 21:
+    if (human.getScore() > computer.getScore() or computer.getScore() > 21) and human.getScore() <= 21:
         print("You Win!")
-    elif computer.getScore() > human.getScore() or human.getScore() > 21:
+    elif (computer.getScore() > human.getScore() or human.getScore() > 21) and computer.getScore() <= 21:
         print("Computer Wins!")
-        
+
         
 
 initGame()
