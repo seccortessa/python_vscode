@@ -20,18 +20,86 @@ import random
 
 cards = [11, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9, 10, 10, 10, 10]
 
+class player:
+    def __init__(self,name):
+        self.name = name
+        self.cards = []
+        self.score = 0
 
-def myfun():
-    a["nuevo"] = [1,2]
+    def giveaCard(self):
+        n = choseCard()
+        self.cards.append(n)
+        self.updateScore(n)
+        
+    def updateScore(self,newNumber):
+        self.setScore(self.getScore()+newNumber)
+        
+    def setScore(self,score):
+        self.score = score
+        
+    def getScore(self):
+        return self.score
 
-a = {
-    1: "hola",
-    2: True,
-    3: 4
-}
+    def getCards(self):
+        return self.cards
 
-print("Antes de:", a)
+    def seeHand(self):
+        print("You cards are:") 
+        print(self.getCards()) 
+        print("and the sum is:") 
+        print(self.getScore()) 
 
-myfun()
+def choseCard():
+    return random.choice(cards)
 
-print("Despues de:" ,a)
+def initGame():
+    computer = player("PC")
+    human_name = input("Welcome to blackjack, please type your name: ")
+    human = player(human_name)
+    
+    computer.giveaCard()
+    human.giveaCard()
+    computer.giveaCard()
+    human.giveaCard()
+    
+    onPlay = True
+    
+    while onPlay:
+        human.seeHand()
+        cont = input("Take (t) or Plant (p): ")
+        human.seeHand()
+        if cont == 'p' or cont == 'P'  or human.getScore() > 21 :
+            onPlay = False
+        if cont == 't':
+            human.giveaCard()
+            
+        computer.seeHand()
+        if computer.getScore() < 17:
+            computer.giveaCard()
+        if computer.getScore() < 21 and computer.getScore() > 17:
+            if random.random() > 0.5:
+                computer.giveaCard()
+            else:
+                 onPlay = False
+                
+        if computer.getScore() > 21:
+            onPlay = False
+
+    print('Your score is') 
+    print(human.getScore())
+    print("and computer score is ") 
+    print(computer.getScore())
+
+    if human.getScore() > computer.getScore() or computer.getScore() > 21:
+        print("You Win!")
+    elif computer.getScore() > human.getScore() or human.getScore() > 21:
+        print("Computer Wins!")
+        
+        
+
+initGame()
+
+playagain = input("Do you want to play again? 'y' or 'n'")
+
+if playagain == 'y':
+    initGame()
