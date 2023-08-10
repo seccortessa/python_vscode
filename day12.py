@@ -22,6 +22,7 @@ def playGame(number,diff):
     else:
         attempts = 5
     while attempts >= 0:
+        print("You have",attempts, " attempts remaining to guess the number.")
         numberG = int(input("Guess a number: "))
         if numberG == number:
             win = True
@@ -48,11 +49,11 @@ while playOn:
     win = playGame(number,diff)
 
     if win:
-        print("Congratulations, you won!")
+        print("Congratulations, you won! The number was ",number)
     else:
-        print("You lose!")
+        print("You lose!, the number was ",number)
         
-    playagain = input("Do you want to play again? 'y', 'n'")
+    playagain = input("Do you want to play again? 'y', 'n' ")
 
     if playagain == "y":
         playOn = True
